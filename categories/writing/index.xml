@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Writing on Roblog</title>
+    <link>/categories/writing/</link>
+    <description>Recent content in Writing on Roblog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 16 Nov 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/categories/writing/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>The Beginning</title>
+      <link>/2018/11/the-beginning/</link>
+      <pubDate>Fri, 16 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/2018/11/the-beginning/</guid>
+      <description>This is the first chapter of The Shepherd King, written as part of NaNoWriMo.
+There is a tall mountain above it, and a glacier. But there are countless mountains in Anaria. Almost everything is in a mountain, or on a mountain, or in the shadows of mountains. It is in a valley, but nearly all the dwelling places of men in that land lie in valleys of some kind or another.</description>
+    </item>
+    
+  </channel>
+</rss>

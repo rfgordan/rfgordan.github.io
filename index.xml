@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Roblog</title>
+    <link>/</link>
+    <description>Recent content on Roblog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 16 Nov 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>The Beginning</title>
+      <link>/2018/11/the-beginning/</link>
+      <pubDate>Fri, 16 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/2018/11/the-beginning/</guid>
+      <description>This is the first chapter of The Shepherd King, written as part of NaNoWriMo.
+There is a tall mountain above it, and a glacier. But there are countless mountains in Anaria. Almost everything is in a mountain, or on a mountain, or in the shadows of mountains. It is in a valley, but nearly all the dwelling places of men in that land lie in valleys of some kind or another.</description>
+    </item>
+    
+    <item>
+      <title>Adam&#39;s Peak Sunrise</title>
+      <link>/2018/10/adams-peak-sunrise/</link>
+      <pubDate>Mon, 15 Oct 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/2018/10/adams-peak-sunrise/</guid>
+      <description>During the pilgrimage season, which runs from December to March, hundreds of devout Sri Lankans nightly climb Sri Pada, or Adam’s Peak. The goal is to catch the mesmerizing sunrise from the summit. At the top of the peculiar conical mountain, towering above the surrounding terrain, lies a sacred rock said to hold the footprint of the Lord Buddha, or Adam, or St. Thomas, or Shiva, or a handful of other obscure candidates, according to the religious affiliation of the storyteller.</description>
+    </item>
+    
+    <item>
+      <title>Projects</title>
+      <link>/page/projects/</link>
+      <pubDate>Thu, 20 Jul 2017 21:54:51 -0700</pubDate>
+      
+      <guid>/page/projects/</guid>
+      <description>This page holds my project archive. I haven&amp;rsquo;t put anything here yet, but in the mean time you can check out my github.</description>
+    </item>
+    
+    <item>
+      <title>Contact</title>
+      <link>/page/contact/</link>
+      <pubDate>Wed, 12 Jul 2017 22:12:31 -0700</pubDate>
+      
+      <guid>/page/contact/</guid>
+      <description>You can reach me at rfgordan@gmail.com</description>
+    </item>
+    
+  </channel>
+</rss>
