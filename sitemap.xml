@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>/2019/08/exploring-tft-matchmaking/</loc>
+    <lastmod>2019-08-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/2018/11/the-beginning/</loc>
     <lastmod>2018-11-16T00:00:00+00:00</lastmod>
   </url>
@@ -33,6 +38,12 @@
   </url>
   
   <url>
+    <loc>/categories/data-science/</loc>
+    <lastmod>2019-08-18T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>/page/</loc>
     <lastmod>2017-07-20T21:54:51-07:00</lastmod>
     <priority>0</priority>
@@ -40,13 +51,13 @@
   
   <url>
     <loc>/post/</loc>
-    <lastmod>2018-11-16T00:00:00+00:00</lastmod>
+    <lastmod>2019-08-18T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>/</loc>
-    <lastmod>2018-11-16T00:00:00+00:00</lastmod>
+    <lastmod>2019-08-18T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   

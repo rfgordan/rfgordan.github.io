@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Data Science on Roblog</title>
+    <link>/categories/data-science/</link>
+    <description>Recent content in Data Science on Roblog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 18 Aug 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/categories/data-science/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Exploring TFT Matchmaking</title>
+      <link>/2019/08/exploring-tft-matchmaking/</link>
+      <pubDate>Sun, 18 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/2019/08/exploring-tft-matchmaking/</guid>
+      <description>Teamfight Tactics, or TFT, is Riot’s entry in the “autochess” genre of strategy video games. Like Riot’s flagship game, League of Legends, TFT has a Ranked mode where players move up and down a “ladder” composed of tiers (Iron, Bronze, Silver, Gold, Platinum, Diamond, Master, Grandmaster, and Challenger) and more granular numbered divisions within these tiers. This system exists essentially to make improvement feel more rewarding; “climbing” from plat iv to diamond i is more exhilarating than gaining 100 points of elo in chess.</description>
+    </item>
+    
+  </channel>
+</rss>

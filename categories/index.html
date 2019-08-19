@@ -22,6 +22,25 @@
   
     
     
+      
+      
+        
+        
+        
+        
+        
+          
+          
+          
+        
+        
+        
+      
+      
+    
+  
+    
+    
   
     
     
@@ -91,6 +110,8 @@
     
     <link rel="stylesheet" href="/css/style-u6mk0ojoywresbx8iepslrmmhl4stuhrsxuwhkpwrkrx7mryjcaimasnk4pi.min.css" />
     
+    
+      <link rel="stylesheet" href="/css/post.css">
     
 
     
@@ -250,6 +271,12 @@ if (!doNotTrack) {
               
                 
                 <div>
+                  <a href="#posts-list-data-science" class="category-anchor" data-category="data-science" data-parent-categories="">data-science</a>
+                  
+                </div>
+              
+                
+                <div>
                   <a href="#posts-list-writing" class="category-anchor" data-category="writing" data-parent-categories="">writing</a>
                   
                 </div>
@@ -258,6 +285,23 @@ if (!doNotTrack) {
           </section>
           <section class="boxes">
             
+              
+                
+                <div id="posts-list-data-science" class="archive box" data-category="data-science" data-parent-categories="" style="display: block;">
+                  <h4 class="archive-title text-xlarge">
+                    <a class="link-unstyled" href="data-science">data-science (1)</a>
+                  </h4>
+                  <ul class="archive-posts">
+                    
+                      <li class="archive-post">
+                        <a class="archive-post-title" href="/2019/08/exploring-tft-matchmaking/">Exploring TFT Matchmaking</a><span class="archive-post-date"> - 
+  August 18, 2019
+</span>
+                      </li>
+                    
+                    
+                  </ul>
+                </div>
               
                 
                 <div id="posts-list-writing" class="archive box" data-category="writing" data-parent-categories="" style="display: block;">
@@ -283,6 +327,37 @@ if (!doNotTrack) {
   <span class="copyrights">
     &copy; 2019 Robert Gordan. All Rights Reserved
   </span>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js" integrity="sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js" integrity="sha384-dq1/gEHSxPZQ7DdrM82ID4YVol9BYyU7GbWlIwnwyPzotpoc57wDw/guX8EaYGPx" crossorigin="anonymous"></script>
+  <script>
+    renderMathInElement(document.body,
+      {
+          delimiters: [
+              {left: "$$", right: "$$", display: true},
+              {left: "$", right: "$", display: false},
+          ]
+      }
+    );
+
+    var inlineMathArray = document.querySelectorAll("script[type='math/tex']");
+    for (var i = 0; i < inlineMathArray.length; i++) {
+      var inlineMath = inlineMathArray[i];
+      var tex = inlineMath.innerText || inlineMath.textContent;
+      var replaced = document.createElement("span");
+      replaced.innerHTML = katex.renderToString(tex, {displayMode: false});
+      inlineMath.parentNode.replaceChild(replaced, inlineMath);
+    }
+
+    var displayMathArray = document.querySelectorAll("script[type='math/tex; mode=display']");
+    for (var i = 0; i < displayMathArray.length; i++) {
+      var displayMath = displayMathArray[i];
+      var tex = displayMath.innerHTML;
+      var replaced = document.createElement("span");
+      replaced.innerHTML = katex.renderToString(tex.replace(/%.*/g, ''), {displayMode: true});
+      displayMath.parentNode.replaceChild(replaced, displayMath);
+    }
+  </script>
 </footer>
 
       </div>
@@ -320,6 +395,13 @@ if (!doNotTrack) {
 
   </body>
   
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/katex.min.css" integrity="sha384-D+9gmBxUQogRLqvARvNLmA9hS2x//eK1FhVb9PiU86gmcrBrJAQT8okdJ4LMp2uv" crossorigin="anonymous">
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/katex.min.js" integrity="sha384-483A6DwYfKeDa0Q52fJmxFXkcPCFfnXMoXblOkJ4JcA8zATN6Tm78UNL72AKk+0O" crossorigin="anonymous"></script>
+
+
+
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.js"></script>
@@ -337,7 +419,7 @@ $(document).ready(function() {
       code += "<span class=\"line\">" + line + "</span><br>";
     });
     if (code.length > 0) {
-      block.innerHTML = code;  
+      block.innerHTML = code;
     }
   });
   $('pre > code').each(function(i, block) {
