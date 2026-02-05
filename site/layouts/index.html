@@ -1,0 +1,30 @@
+{{ define "main" }}
+<section class="home-intro">
+  <h1>{{ .Site.Params.author }}</h1>
+  <p class="bio">{{ .Site.Params.bio | safeHTML }}</p>
+</section>
+
+<script>
+  (function () {
+    var user = "{{ .Site.Params.email_user }}";
+    var domain = "{{ .Site.Params.email_domain }}";
+    var link = document.getElementById("email-link");
+    if (!link || !user || !domain) return;
+    var addr = user + "@" + domain;
+    link.href = "mailto:" + addr;
+  })();
+</script>
+
+<section class="home-list">
+  <h2>Writing</h2>
+  <ul class="post-list">
+    {{ $posts := where .Site.RegularPages "Section" "posts" }}
+    {{ range $posts.ByDate.Reverse }}
+      <li>
+        <span class="post-date">{{ .Date.Format "Jan 2, 2006" }}</span>
+        <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+      </li>
+    {{ end }}
+  </ul>
+</section>
+{{ end }}

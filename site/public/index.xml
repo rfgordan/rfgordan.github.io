@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Robert Gordan</title>
+    <link>//localhost:1313/</link>
+    <description>Recent content on Robert Gordan</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 18 Aug 2019 00:00:00 +0000</lastBuildDate>
+    <atom:link href="//localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Exploring TFT Matchmaking</title>
+      <link>//localhost:1313/posts/exploring-tft-matchmaking/</link>
+      <pubDate>Sun, 18 Aug 2019 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/posts/exploring-tft-matchmaking/</guid>
+      <description>&lt;p&gt;Teamfight Tactics, or TFT, is Riot’s entry in the “autochess” genre of strategy video games. Like Riot’s flagship game, League of Legends, TFT has a Ranked mode where players move up and down a “ladder” composed of tiers (Iron, Bronze, Silver, Gold, Platinum, Diamond, Master, Grandmaster, and Challenger) and more granular numbered divisions within these tiers. This system exists essentially to make improvement feel more rewarding; “climbing” from plat iv to diamond i is more exhilarating than gaining 100 points of elo in chess. Behind this facade, however, lies the Matchmaking Rating (MMR), a purer rating system that doesn’t have the same user experience constraints. MMR represents Riot’s best guess about a player’s skill, and, as the name suggests, is used to assign players opponents of equivalent skill.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>The Beginning</title>
+      <link>//localhost:1313/posts/the-beginning/</link>
+      <pubDate>Fri, 16 Nov 2018 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/posts/the-beginning/</guid>
+      <description>&lt;p&gt;This is the first chapter of &lt;strong&gt;The Shepherd King&lt;/strong&gt;, written as part of &lt;a href=&#34;https://nanowrimo.org/&#34;&gt;NaNoWriMo&lt;/a&gt;.&lt;/p&gt;&#xA;&lt;hr /&gt;&#xA;&lt;p&gt;There is a tall mountain above it, and a glacier. But there are countless mountains in Anaria. Almost everything is in a mountain, or on a mountain, or in the shadows of mountains. It is in a valley, but nearly all the dwelling places of men in that land lie in valleys of some kind or another. There is a waterfall nearby so high that on gusty days the water never reaches the ground, but even this is not so rare. And there is a vast, ancient mountain-ash that bears legions of tiny flowers. Every man that was born there and left, grasping in senile old age for the details of his native place, remembers that tree. But nobody has ever been foolish enough to search for a village based on a tree. Up the valley, beside a languid pine, in a shallow grotto, was a crude idol that figured prominently in the creation of the universe. When the elders told the children that tale, on warm summer nights when the embers calved in the firepits and the stars moved in rivers in the sky, the children believed it in the core of their souls. Several generations later, no one remembered it at all, and the savage winters of those parts are not kind to surplus goddesses. One story, though, survived those long years. Any man, any woman, any child older than four, could point to the humble house where he entered the world. At that point, though, the villages claiming to be his birthplace rivalled the mountains in number, and some of them had very official looking written documents to point to, rather than crumbling one-room huts. So the searchers, and at a certain time there were very many, never found out the truth and instead debated ceaselessly the relative merits of diverse falsehoods.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Adam&#39;s Peak Sunrise</title>
+      <link>//localhost:1313/posts/adams-peak-sunrise/</link>
+      <pubDate>Mon, 15 Oct 2018 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/posts/adams-peak-sunrise/</guid>
+      <description>&lt;p&gt;During the pilgrimage season, which runs from December to March, hundreds of devout Sri Lankans nightly climb Sri Pada, or Adam’s Peak. The goal is to catch the mesmerizing sunrise from the summit. At the top of the peculiar conical mountain, towering above the surrounding terrain, lies a sacred rock said to hold the footprint of the Lord Buddha, or Adam, or St. Thomas, or Shiva, or a handful of other obscure candidates, according to the religious affiliation of the storyteller. Fortunately for travelers who, like me, don’t arrive in the December-March time frame, the trail is open year-round. And it is perhaps the off-season climb, rather than the traditional pilgrimage, that best tests the climber’s command of Buddhist virtues. It takes metta (benevolence) to maintain sanity while navigating Sri Lankan buses to reach the base, and upekka (equanimity) to stomach the strong chance that clouds will block the sunrise.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Contact</title>
+      <link>//localhost:1313/pages/contact/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/pages/contact/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;You can reach me at rfgordan@gmail.com&lt;/strong&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Projects</title>
+      <link>//localhost:1313/pages/projects/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/pages/projects/</guid>
+      <description>&lt;p&gt;This page holds my project archive. I haven&amp;rsquo;t put anything here yet, but in the mean time you can check out my &lt;a href=&#34;http://github.com/rfgordan&#34;&gt;github&lt;/a&gt;.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Exploring TFT Matchmaking · Robert Gordan</title>
+<link rel="stylesheet" href="/css/main.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+<script defer>
+  document.addEventListener("DOMContentLoaded", function () {
+    if (typeof renderMathInElement !== "function") return;
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "\\[", right: "\\]", display: true },
+        { left: "$", right: "$", display: false },
+        { left: "\\(", right: "\\)", display: false }
+      ],
+      throwOnError: false
+    });
+  });
+</script>
+
+  </head>
+  <body>
+    <div class="page">
+      <main class="site-main">
+        
+<article class="single">
+  <header class="single-header">
+    <h1>Exploring TFT Matchmaking</h1>
+    
+      <div class="post-date">Aug 18, 2019</div>
+    
+  </header>
+  <div class="content">
+    <p>Teamfight Tactics, or TFT, is Riot’s entry in the “autochess” genre of strategy video games. Like Riot’s flagship game, League of Legends, TFT has a Ranked mode where players move up and down a “ladder” composed of tiers (Iron, Bronze, Silver, Gold, Platinum, Diamond, Master, Grandmaster, and Challenger) and more granular numbered divisions within these tiers. This system exists essentially to make improvement feel more rewarding; “climbing” from plat iv to diamond i is more exhilarating than gaining 100 points of elo in chess. Behind this facade, however, lies the Matchmaking Rating (MMR), a purer rating system that doesn’t have the same user experience constraints. MMR represents Riot’s best guess about a player’s skill, and, as the name suggests, is used to assign players opponents of equivalent skill.</p>
+<p>There are a couple aspects of TFT that interested me in its rating system. First, unlike two-player games, TFT has eight players, complicating the rating system. Secondly, there is an enormous chance component in the game. This doesn’t imply that the game is less skilled, but it makes it harder to observe skill.</p>
+<p>Originally I wanted to see if I could reverse engineer MMR, such that given any player I could calculate their MMR. Unfortunately I never came up with a great approach to do this. One trivial problem is that although there is probably a linear relationship between MMR and LP (tier system points) the parameters of this relationship would be impossible to find. So even if we understood how the rating system, any hard guesses about MMR would be shots in the dark.</p>
+<p>I started by scouring the internet for information, without much success. Riot once listed the top beta players by MMR, but we don’t have game information to compare. The most reasonable takeaway from this post is that the arbitrary “y-intercept” MMR assigned to beginners is somewhere in the range of 1400-1600. The post introducing Ranked mode has more details. First it lists some of the constraints on LP, all of which could cause it to get temporarily out of sync with MMR. More interestingly is the following line:</p>
+<p>“You’ll gain a lot more LP when you finish a TFT game in first place, since you’re basically beating seven other players in that game.”</p>
+<p>I latched onto this because by far the simplest approach would be to reuse one of the rating systems developed for two-player contexts, and consider each match of TFT to be 8 choose 2 matches. It appeals to the software engineer in me!</p>
+<p>There are a lot of two-player rating systems, and most of them are related to elo, which was developed for chess. Glicko-2, a more statistically sophisticated take on elo, seems to be the most popular one. I don’t want to wade into the formulas, but the important point here is that we can model a game as draws from two player distributions (parameterized by their rating). The player with a higher draw wins. Then the cumulative density function of the distribution of the difference between the two draws gives you the probability of a player at a given advantage/disadvantage winning.</p>
+<p>With that in mind, I decided to get some data. I decided to look only at challenger games, for a couple of reasons. First, because they are the “apex” tier, their LP is uncapped, meaning they don’t run into the usual restrictions around movement of LP and therefore their LP should map directly their true MMR. Secondly, if we look at the Glicko-2 formulas for win probability we see a “rating deviation” term. Riot’s implementation of rating deviation is almost certainly bespoke, and I want to avoid dealing with it. Challengers have played so many games that this should essentially disappear (I hope).</p>
+<p><figure><img src="/glicko.svg" alt="Glicko"></figure></p>
+<p>Using my list of EUW and NA challengers, I queried match history from blitz. I used this to compile a list of pairs of challengers that had been in a match together and which one had finished on top. I then calculated their LP differential, and fit a logistic function to predict pair outcome from this differential. Why a logistic function? For one, it maps from ratings $(-\infty, \infty)$ to probability $[0,1]$. But the logistic function also happens to be the cdf of the logistic distribution, which models the difference between two draws from a certain flavor of extreme value distribution. The parameter we’re fitting is the scale, which determines how “stretched out” our logistic function looks. High scale, and we get a very flat, long rise. Low scale, and the line will shoot up from 0 to 1 very quickly. Either way, we keep a mean of 0, because the assumption that two players of the same rating have the same odds is pretty fundamental.</p>
+<p><figure><img src="/EUW_logistic.png" alt="EUW logistic fit"></figure></p>
+<p>As you can see, the scale is so huge that you can barely see the logistic shape. It makes sense that the scale is high because of the high rng. A random diamond player can probably steal quite a few games off of the best player in the world. On the other hand, this seems a little too high. One issue is that we have very few games with huge elo differential.</p>
+<p><figure><img src="/EUW_hist.png" alt="EUW lp differential counts"></figure></p>
+<p>Another question to ask is, how do we get from this pairwise model to an eight-player model? Can we give the chances of finishing 1st through 8th? For 1st place, this is essentially asking: given seven other draws from player distributions, what is the chance ours is first? Unfortunately this is a Hard Problem. I don’t think there is an analytic solution. Luckily we have computers, so we can just sample. Using our derived scale parameter, I’ve plotted a player distribution (gumbel) for DarkHydra, EUW #1 at the time of writing, and seven hypothetical lower rated opponents.</p>
+<p><figure><img src="/dh_pdf.png" alt="DarkHydra pdf"></figure></p>
+<p>If I sample from these distributions, I get about 18% winrate for DarkHydra, far below his actual ~30% winrate. This drives home the point that we didn’t have sufficient for high elo differentials.</p>
+
+  </div>
+</article>
+
+      </main>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,15 @@
+baseURL = "/"
+title = "Robert Gordan"
+languageCode = "en-us"
+theme = "bearcub"
+
+[params]
+  author = "Robert Gordan"
+  bio = "Hi, I'm Robbie! I'm interested in AI, and some other things.<br><br>Feel free to reach out by <a id=\"email-link\" href=\"#\" rel=\"nofollow\">email</a>, on <a href=\"https://x.com/goodforzer0\">Twitter</a> or on <a href=\"https://www.linkedin.com/in/robert-gordan-b773a397/\">LinkedIn</a>. My github is <a href=\"https://github.com/rfgordan\">here</a>."
+  email_user = "rfgordan"
+  email_domain = "gmail.com"
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Programming on Robert Gordan</title>
+    <link>//localhost:1313/tags/programming/</link>
+    <description>Recent content in Programming on Robert Gordan</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 18 Aug 2019 00:00:00 +0000</lastBuildDate>
+    <atom:link href="//localhost:1313/tags/programming/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Exploring TFT Matchmaking</title>
+      <link>//localhost:1313/posts/exploring-tft-matchmaking/</link>
+      <pubDate>Sun, 18 Aug 2019 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/posts/exploring-tft-matchmaking/</guid>
+      <description>&lt;p&gt;Teamfight Tactics, or TFT, is Riot’s entry in the “autochess” genre of strategy video games. Like Riot’s flagship game, League of Legends, TFT has a Ranked mode where players move up and down a “ladder” composed of tiers (Iron, Bronze, Silver, Gold, Platinum, Diamond, Master, Grandmaster, and Challenger) and more granular numbered divisions within these tiers. This system exists essentially to make improvement feel more rewarding; “climbing” from plat iv to diamond i is more exhilarating than gaining 100 points of elo in chess. Behind this facade, however, lies the Matchmaking Rating (MMR), a purer rating system that doesn’t have the same user experience constraints. MMR represents Riot’s best guess about a player’s skill, and, as the name suggests, is used to assign players opponents of equivalent skill.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
