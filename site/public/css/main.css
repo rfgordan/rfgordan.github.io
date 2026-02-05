@@ -1,9 +1,16 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Lora:wght@400;600;700&display=swap");
+
 :root {
-  --bg: #f7f6f2;
-  --text: #111111;
-  --muted: #5a5a5a;
-  --accent: #1f4f5b;
-  --rule: #e1ded6;
+  --bg:          #2b2830;
+  --text: #dfdbd1;
+  --muted:       #a59f96;
+
+  --accent:      #b08a55;
+
+  --bio-link:        #7fa7b6;
+  --bio-link-hover:  #9bbdca;
+
+  --rule:        #3a3540;
 }
 
 * {
@@ -15,7 +22,7 @@ body {
   padding: 0;
   background: var(--bg);
   color: var(--text);
-  font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Palatino, "Times New Roman", serif;
+  font-family: "Inter", "Lora", "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Palatino, "Times New Roman", serif;
   line-height: 1.7;
 }
 
@@ -68,6 +75,17 @@ body {
 
 .bio {
   margin: 0 0 8px;
+}
+
+.bio-links a {
+  color: var(--bio-link);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+
+.bio-links a:hover {
+  color: var(--bio-link-hover);
+  border-color: var(--bio-link);
 }
 
 .meta {
@@ -135,8 +153,22 @@ body {
   display: inline-block;
 }
 
+.content figure img {
+  background: #ffffff;
+  padding: 12px;
+  border-radius: 4px;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
 .content a {
-  color: var(--accent);
+  color: var(--bio-link);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+
+.content a:hover {
+  color: var(--bio-link-hover);
+  border-color: var(--bio-link);
 }
 
 .content hr {
