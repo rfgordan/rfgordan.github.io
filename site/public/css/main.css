@@ -1,13 +1,16 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Lora:wght@400;600;700&display=swap");
 
 :root {
-  --bg: #f7f6f2;
-  --text: #111111;
-  --muted: #5a5a5a;
-  --accent: #1f4f5b;
-  --rule: #e1ded6;
-  --bio-link: #2a6f8a;
-  --bio-link-hover: #1f5368;
+  --bg:          #2b2830;
+  --text:        #dfdbd1; /* darker, less luminous for dense text */
+  --muted:       #a59f96;
+
+  --accent:      #b08a55; /* rusty / burnished gold */
+
+  --bio-link:        #7fa7b6;
+  --bio-link-hover:  #9bbdca;
+
+  --rule:        #3a3540;
 }
 
 * {
