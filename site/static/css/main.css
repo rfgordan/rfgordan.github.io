@@ -4,6 +4,8 @@
   --muted: #5a5a5a;
   --accent: #1f4f5b;
   --rule: #e1ded6;
+  --bio-link: #2a6f8a;
+  --bio-link-hover: #1f5368;
 }
 
 * {
@@ -68,6 +70,17 @@ body {
 
 .bio {
   margin: 0 0 8px;
+}
+
+.bio-links a {
+  color: var(--bio-link);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+
+.bio-links a:hover {
+  color: var(--bio-link-hover);
+  border-color: var(--bio-link);
 }
 
 .meta {
@@ -135,8 +148,22 @@ body {
   display: inline-block;
 }
 
+.content figure img {
+  background: #ffffff;
+  padding: 12px;
+  border-radius: 4px;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
 .content a {
-  color: var(--accent);
+  color: var(--bio-link);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+
+.content a:hover {
+  color: var(--bio-link-hover);
+  border-color: var(--bio-link);
 }
 
 .content hr {
