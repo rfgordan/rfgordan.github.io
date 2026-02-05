@@ -1,75 +1,65 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  
   <url>
-    <loc>/2019/08/exploring-tft-matchmaking/</loc>
+    <loc>/posts/</loc>
     <lastmod>2019-08-18T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/2018/11/the-beginning/</loc>
-    <lastmod>2018-11-16T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/2018/10/adams-peak-sunrise/</loc>
-    <lastmod>2018-10-15T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/page/projects/</loc>
-    <lastmod>2017-07-20T21:54:51-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/page/contact/</loc>
-    <lastmod>2017-07-12T22:12:31-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/archives/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>/categories/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
+    <lastmod>2019-08-18T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>/categories/data-science/</loc>
     <lastmod>2019-08-18T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/page/</loc>
-    <lastmod>2017-07-20T21:54:51-07:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/post/</loc>
+  </url><url>
+    <loc>/tags/data-science/</loc>
     <lastmod>2019-08-18T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
+  </url><url>
+    <loc>/tags/elo/</loc>
+    <lastmod>2019-08-18T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/posts/exploring-tft-matchmaking/</loc>
+    <lastmod>2019-08-18T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/mmr/</loc>
+    <lastmod>2019-08-18T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/programming/</loc>
+    <lastmod>2019-08-18T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>/</loc>
     <lastmod>2019-08-18T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>/tags/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
+    <lastmod>2019-08-18T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/tft/</loc>
+    <lastmod>2019-08-18T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/writing/</loc>
+    <lastmod>2019-08-18T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/fantasy/</loc>
+    <lastmod>2018-11-16T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/fiction/</loc>
+    <lastmod>2018-11-16T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/nanowrimo/</loc>
+    <lastmod>2018-11-16T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/posts/the-beginning/</loc>
+    <lastmod>2018-11-16T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>/categories/writing/</loc>
     <lastmod>2018-11-16T00:00:00+00:00</lastmod>
-    <priority>0</priority>
+  </url><url>
+    <loc>/posts/adams-peak-sunrise/</loc>
+    <lastmod>2018-10-15T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/pages/contact/</loc>
+  </url><url>
+    <loc>/pages/</loc>
+  </url><url>
+    <loc>/pages/projects/</loc>
   </url>
-  
 </urlset>

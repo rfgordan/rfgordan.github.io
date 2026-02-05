@@ -1,32 +1,26 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Categories on Roblog</title>
+    <title>Categories on Robert Gordan</title>
     <link>/categories/</link>
-    <description>Recent content in Categories on Roblog</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <description>Recent content in Categories on Robert Gordan</description>
+    <generator>Hugo</generator>
     <language>en-us</language>
-    
-	<atom:link href="/categories/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sun, 18 Aug 2019 00:00:00 +0000</lastBuildDate>
+    <atom:link href="/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Data Science</title>
       <link>/categories/data-science/</link>
       <pubDate>Sun, 18 Aug 2019 00:00:00 +0000</pubDate>
-      
       <guid>/categories/data-science/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>Writing</title>
       <link>/categories/writing/</link>
       <pubDate>Fri, 16 Nov 2018 00:00:00 +0000</pubDate>
-      
       <guid>/categories/writing/</guid>
       <description></description>
     </item>
-    
   </channel>
 </rss>

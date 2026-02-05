@@ -1,14 +1,75 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tags on Roblog</title>
+    <title>Tags on Robert Gordan</title>
     <link>/tags/</link>
-    <description>Recent content in Tags on Roblog</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <description>Recent content in Tags on Robert Gordan</description>
+    <generator>Hugo</generator>
     <language>en-us</language>
-    
-	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sun, 18 Aug 2019 00:00:00 +0000</lastBuildDate>
+    <atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Data Science</title>
+      <link>/tags/data-science/</link>
+      <pubDate>Sun, 18 Aug 2019 00:00:00 +0000</pubDate>
+      <guid>/tags/data-science/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>ELO</title>
+      <link>/tags/elo/</link>
+      <pubDate>Sun, 18 Aug 2019 00:00:00 +0000</pubDate>
+      <guid>/tags/elo/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>MMR</title>
+      <link>/tags/mmr/</link>
+      <pubDate>Sun, 18 Aug 2019 00:00:00 +0000</pubDate>
+      <guid>/tags/mmr/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Programming</title>
+      <link>/tags/programming/</link>
+      <pubDate>Sun, 18 Aug 2019 00:00:00 +0000</pubDate>
+      <guid>/tags/programming/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>TFT</title>
+      <link>/tags/tft/</link>
+      <pubDate>Sun, 18 Aug 2019 00:00:00 +0000</pubDate>
+      <guid>/tags/tft/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Writing</title>
+      <link>/tags/writing/</link>
+      <pubDate>Sun, 18 Aug 2019 00:00:00 +0000</pubDate>
+      <guid>/tags/writing/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Fantasy</title>
+      <link>/tags/fantasy/</link>
+      <pubDate>Fri, 16 Nov 2018 00:00:00 +0000</pubDate>
+      <guid>/tags/fantasy/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Fiction</title>
+      <link>/tags/fiction/</link>
+      <pubDate>Fri, 16 Nov 2018 00:00:00 +0000</pubDate>
+      <guid>/tags/fiction/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Nanowrimo</title>
+      <link>/tags/nanowrimo/</link>
+      <pubDate>Fri, 16 Nov 2018 00:00:00 +0000</pubDate>
+      <guid>/tags/nanowrimo/</guid>
+      <description></description>
+    </item>
   </channel>
 </rss>

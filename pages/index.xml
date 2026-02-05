@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Pages on Robert Gordan</title>
+    <link>/pages/</link>
+    <description>Recent content in Pages on Robert Gordan</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <atom:link href="/pages/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Contact</title>
+      <link>/pages/contact/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>/pages/contact/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;You can reach me at rfgordan@gmail.com&lt;/strong&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Projects</title>
+      <link>/pages/projects/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>/pages/projects/</guid>
+      <description>&lt;p&gt;This page holds my project archive. I haven&amp;rsquo;t put anything here yet, but in the mean time you can check out my &lt;a href=&#34;http://github.com/rfgordan&#34;&gt;github&lt;/a&gt;.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

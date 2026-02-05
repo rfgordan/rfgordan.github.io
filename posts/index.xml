@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Robert Gordan</title>
-    <link>/</link>
-    <description>Recent content on Robert Gordan</description>
+    <title>Articles on Robert Gordan</title>
+    <link>/posts/</link>
+    <description>Recent content in Articles on Robert Gordan</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 18 Aug 2019 00:00:00 +0000</lastBuildDate>
-    <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Exploring TFT Matchmaking</title>
       <link>/posts/exploring-tft-matchmaking/</link>
@@ -28,20 +28,6 @@
       <pubDate>Mon, 15 Oct 2018 00:00:00 +0000</pubDate>
       <guid>/posts/adams-peak-sunrise/</guid>
       <description>&lt;p&gt;During the pilgrimage season, which runs from December to March, hundreds of devout Sri Lankans nightly climb Sri Pada, or Adam’s Peak. The goal is to catch the mesmerizing sunrise from the summit. At the top of the peculiar conical mountain, towering above the surrounding terrain, lies a sacred rock said to hold the footprint of the Lord Buddha, or Adam, or St. Thomas, or Shiva, or a handful of other obscure candidates, according to the religious affiliation of the storyteller. Fortunately for travelers who, like me, don’t arrive in the December-March time frame, the trail is open year-round. And it is perhaps the off-season climb, rather than the traditional pilgrimage, that best tests the climber’s command of Buddhist virtues. It takes metta (benevolence) to maintain sanity while navigating Sri Lankan buses to reach the base, and upekka (equanimity) to stomach the strong chance that clouds will block the sunrise.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Contact</title>
-      <link>/pages/contact/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>/pages/contact/</guid>
-      <description>&lt;p&gt;&lt;strong&gt;You can reach me at rfgordan@gmail.com&lt;/strong&gt;&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Projects</title>
-      <link>/pages/projects/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>/pages/projects/</guid>
-      <description>&lt;p&gt;This page holds my project archive. I haven&amp;rsquo;t put anything here yet, but in the mean time you can check out my &lt;a href=&#34;http://github.com/rfgordan&#34;&gt;github&lt;/a&gt;.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>
