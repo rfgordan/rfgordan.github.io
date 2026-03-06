@@ -2,73 +2,87 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Robert Gordan</title>
-    <link>//localhost:1313/tags/</link>
+    <link>/tags/</link>
     <description>Recent content in Tags on Robert Gordan</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 18 Aug 2019 00:00:00 +0000</lastBuildDate>
-    <atom:link href="//localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 06 Mar 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Data Science</title>
-      <link>//localhost:1313/tags/data-science/</link>
-      <pubDate>Sun, 18 Aug 2019 00:00:00 +0000</pubDate>
-      <guid>//localhost:1313/tags/data-science/</guid>
+      <link>/tags/data-science/</link>
+      <pubDate>Fri, 06 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>/tags/data-science/</guid>
       <description></description>
     </item>
     <item>
-      <title>ELO</title>
-      <link>//localhost:1313/tags/elo/</link>
-      <pubDate>Sun, 18 Aug 2019 00:00:00 +0000</pubDate>
-      <guid>//localhost:1313/tags/elo/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>MMR</title>
-      <link>//localhost:1313/tags/mmr/</link>
-      <pubDate>Sun, 18 Aug 2019 00:00:00 +0000</pubDate>
-      <guid>//localhost:1313/tags/mmr/</guid>
+      <title>LLM</title>
+      <link>/tags/llm/</link>
+      <pubDate>Fri, 06 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>/tags/llm/</guid>
       <description></description>
     </item>
     <item>
       <title>Programming</title>
-      <link>//localhost:1313/tags/programming/</link>
-      <pubDate>Sun, 18 Aug 2019 00:00:00 +0000</pubDate>
-      <guid>//localhost:1313/tags/programming/</guid>
+      <link>/tags/programming/</link>
+      <pubDate>Fri, 06 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>/tags/programming/</guid>
       <description></description>
     </item>
     <item>
-      <title>TFT</title>
-      <link>//localhost:1313/tags/tft/</link>
-      <pubDate>Sun, 18 Aug 2019 00:00:00 +0000</pubDate>
-      <guid>//localhost:1313/tags/tft/</guid>
+      <title>Research</title>
+      <link>/tags/research/</link>
+      <pubDate>Fri, 06 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>/tags/research/</guid>
       <description></description>
     </item>
     <item>
       <title>Writing</title>
-      <link>//localhost:1313/tags/writing/</link>
+      <link>/tags/writing/</link>
+      <pubDate>Fri, 06 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>/tags/writing/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>ELO</title>
+      <link>/tags/elo/</link>
       <pubDate>Sun, 18 Aug 2019 00:00:00 +0000</pubDate>
-      <guid>//localhost:1313/tags/writing/</guid>
+      <guid>/tags/elo/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>MMR</title>
+      <link>/tags/mmr/</link>
+      <pubDate>Sun, 18 Aug 2019 00:00:00 +0000</pubDate>
+      <guid>/tags/mmr/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>TFT</title>
+      <link>/tags/tft/</link>
+      <pubDate>Sun, 18 Aug 2019 00:00:00 +0000</pubDate>
+      <guid>/tags/tft/</guid>
       <description></description>
     </item>
     <item>
       <title>Fantasy</title>
-      <link>//localhost:1313/tags/fantasy/</link>
+      <link>/tags/fantasy/</link>
       <pubDate>Fri, 16 Nov 2018 00:00:00 +0000</pubDate>
-      <guid>//localhost:1313/tags/fantasy/</guid>
+      <guid>/tags/fantasy/</guid>
       <description></description>
     </item>
     <item>
       <title>Fiction</title>
-      <link>//localhost:1313/tags/fiction/</link>
+      <link>/tags/fiction/</link>
       <pubDate>Fri, 16 Nov 2018 00:00:00 +0000</pubDate>
-      <guid>//localhost:1313/tags/fiction/</guid>
+      <guid>/tags/fiction/</guid>
       <description></description>
     </item>
     <item>
       <title>Nanowrimo</title>
-      <link>//localhost:1313/tags/nanowrimo/</link>
+      <link>/tags/nanowrimo/</link>
       <pubDate>Fri, 16 Nov 2018 00:00:00 +0000</pubDate>
-      <guid>//localhost:1313/tags/nanowrimo/</guid>
+      <guid>/tags/nanowrimo/</guid>
       <description></description>
     </item>
   </channel>

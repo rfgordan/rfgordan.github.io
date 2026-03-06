@@ -1,0 +1,53 @@
+Implementing an ICML Paper (CollabLLM)
+
+
+
+After returning to California from six months backpacking in Asia, I wanted to refresh my ML skills. My first step was to reproduce a recent research paper end-to-end.
+
+The paper that I chose is CollabLLM. The core idea of the paper is to turn chat models into “collaborative problem-solvers” by fine-tuning the models on simulated conversations that have been scored and selected on this quality.
+
+I chose this paper for several reasons. First, the authors open-sourced the code and several datasets. Second, the idea is compelling, but the technical execution still feels approachable enough for novices. There’s not too much math or obscure custom code in the critical path. The RL itself is handled by high-level HuggingFace APIs, and the contribution of the paper is to combine these pieces and orient them in an interesting research direction. Finally, and relatedly, many of the key elements of the paper felt relevant to a broad range of frontier AI work. Simulating chat rollouts via model APIs closely resembles the infrastructure used in agent systems. The LLM-as-judge + chat simulation framework could be extended to lots of different research ideas.
+
+Technical Details and Results
+
+<Collabllm system graphic>
+
+We obtain fine-tuning data by sampling chat rollouts within our simulation environment. This involves using an api model (in this case gpt-4o-mini) to role play as a user, while our base model represents the assistant. In the paper, each sampled conversation trajectory receives a “Multiturn-aware Reward”, combining a task-specific accuracy metric, a token-count based concision reward, and an LLM-graded “interactivity” score. 
+
+<Reward Function>
+
+This reward function can be used both to prune low-quality branches of in-progress conversation rollouts, and as a reward or ranking function for PPO and DPO, respectively. Going into this project, I was somewhat skeptical of this sort of arbitrary handcrafted reward function — and indeed some of my results may validate these doubts — but I do find it encouraging for amateurs that interesting research can be built on these sorts of intuitive heuristic formulations.
+
+Next, we use this data to fine-tune a base model. The paper implements four fine-tuning methods (SFT, PPO, Offline DPO, Online DPO) against three datasets (MediumDocEdit-Chat, BigCodeBench-Chat, MATH-Chat). For my project, I implemented only SFT and Offline DPO, as well as evals using the simulation environment, for the first dataset. I chose these components to minimize cost and maximize density of learnings. PPO and Online DPO belong to a slightly larger scoped project as they require generated on-policy rollouts from the model being trained.
+
+<Experiment Metrics>
+
+I used Llama-3.1-8B as the base model (following the paper) and trained using 1xA40 GPU instances on Runpod. For the base and SFT models, my results on BLEU and #Tokens metrics closely match those reported in the paper. Base BLEU was 32.24 vs 32.2 reported in the paper, and SFT BLEU was 34.96 vs 35.2 reported in the paper. However, the Offline DPO model failed to reproduce the gains reported in the paper, with BLEU (34.66) roughly in line with SFT BLEU alongside a higher #Tokens (2503.8 average for DPO vs 2113.8 average for SFT). The best-performing DPO model did not converge to a policy separating the chosen and rejected samples, with the logprob margin between the two remaining negative. Tuning the number of epochs and the beta regularization parameter improved convergence but decreased BLEU. Due to GPU memory limitations, I didn’t try increasing the paramter size of the adapter.
+
+<Failure Mode chat history>
+
+Interactivity scores are also highest for SFT (0.913), but also quite high for DPO (0.863) and Base (0.825). This suggests that the score is saturated. Additionally, elevated scores are assigned by the LLM judge even for transparently bad behavior from the assistant model. In one rollout I observed, the user is forced to play the role of the questioner, repeatedly asking the assistant to incorporate the same additional information without getting a satisfactory response. This rollout received an interactivity score of 0.8. Because I copied the interactivity judge prompt directly from the reference implementation, this behavior seems to be a property of the evaluation setup rather than my implementation. This makes me skeptical of the capacity of LLM judges to score abstract qualities like “interactivity.”
+
+Extensions
+
+Thinking through potential future work, a rigorous understanding of the capabilities and limits of RL methods with LLM-as-judge data seems valuable. How would LLMs perform as judges of other abstract qualities, such as novelty or clarity? Are there limits to the amount of such data that can be leveraged, before the base model learns to exploit the judge?
+
+
+Notes on work process
+
+When I started working on this project I had never used claude code before. My idea was to implement the paper mostly by hand so that I learned how to use these libraries. Eventually, I decided to use claude code to do the least interesting infra bits for the simulation environment. Gradually this evolved into an approach of using claude code or codex throughout most of my process. I even ended up running experiments via claude code, and having it report results into a running experiment doc.
+
+
+Where Vibe Coding Failed 
+
+The initial eval script for the BLEU metric split the texts by word, and ChatGPT/Claude agreed. However, with this setup the BLEU was coming back as zero. It turns out the proper use of the nltk API is just supplying the full string. Took me a while to figure this out. This is the most clear instance of LLMs just being flat-out wrong I encountered.
+The models hallucinate parameters for the HuggingFace fine-tuning APIs. I think the APIs are just so big and change so much that its hard to keep them straight.
+Codex naively implemented the DPO data format in a way that kept one pair per conversation. We actually needed one pair per conversation turn. Fixing this bug fixed some very degenerate behavior.
+
+Where Vibe Coding Worked
+
+Still, in other cases, the coding agents caught issues I would not have seen myself. Claude code (in plan mode) realized that the default max_seq_length for DPO wasn’t sufficient to include full conversation rollouts in many cases. Fixing this bug dramatically increased DPO performance.
+
+Stylistically, my biggest gripe with LLM code was that it often felt overly verbose. Claude code generated lots of boilerplate that I think interferes with the legibility of the codebase for a human.
+
+On to the next project.

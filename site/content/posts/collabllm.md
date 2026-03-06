@@ -1,0 +1,269 @@
+---
+title: "Implementing an ICML Paper (CollabLLM)"
+date: 2026-03-06T00:00:00Z
+categories: ["machine learning"]
+tags: ["writing", "programming", "data science", "LLM", "research"]
+---
+
+After returning to California from six months backpacking in Asia, I wanted to refresh my ML skills. My first step was to reproduce a recent research paper end-to-end.
+
+The paper that I chose is [CollabLLM](https://arxiv.org/abs/2502.00640). The core idea of the paper is to turn chat models into "collaborative problem-solvers" by fine-tuning the models on simulated conversations that have been scored and selected on this quality.
+
+<p align="center">
+  <img src="/posts/collabllm/collabllm-system-graphic.png" alt="CollabLLM system graphic">
+</p>
+
+I chose this paper for several reasons. First, the authors open-sourced the code and several datasets. Second, the idea is compelling, but the technical execution still feels approachable enough for novices. There's not too much math or obscure custom code in the critical path. The RL itself is handled by high-level HuggingFace APIs, and the contribution of the paper is to combine these pieces and orient them in an interesting research direction. Finally, and relatedly, many of the key elements of the paper felt relevant to a broad range of frontier AI work. Simulating chat rollouts via model APIs closely resembles the infrastructure used in agent systems. The LLM-as-judge + chat simulation framework could be extended to lots of different research ideas.
+
+## Technical Details and Results
+
+We obtain fine-tuning data by sampling chat rollouts within our simulation environment. This involves using an API model (in this case `gpt-4o-mini`) to role play as a user, while our base model represents the assistant. In the paper, each sampled conversation trajectory receives a "Multiturn-aware Reward", combining a task-specific accuracy metric, a token-count based concision reward, and an LLM-graded "interactivity" score.
+
+<p align="center">
+  <img src="/posts/collabllm/reward-function.png" alt="Reward function">
+</p>
+
+This reward function can be used both to prune low-quality branches of in-progress conversation rollouts, and as a reward or ranking function for PPO and DPO, respectively. Going into this project, I was somewhat skeptical of this sort of arbitrary handcrafted reward function, and indeed some of my results may validate these doubts, but I do find it encouraging for amateurs that interesting research can be built on these sorts of intuitive heuristic formulations.
+
+Next, we use this data to fine-tune a base model. The paper implements four fine-tuning methods (SFT, PPO, Offline DPO, Online DPO) against three datasets (MediumDocEdit-Chat, BigCodeBench-Chat, MATH-Chat). For my project, I implemented only SFT and Offline DPO, as well as evals using the simulation environment, for the first dataset. I chose these components to minimize cost and maximize density of learnings. PPO and Online DPO belong to a slightly larger scoped project as they require generated on-policy rollouts from the model being trained.
+
+<p align="center">
+  <img src="/posts/collabllm/experiment-metrics.png" alt="Experiment metrics">
+</p>
+
+I used Llama-3.1-8B as the base model (following the paper) and trained using 1xA40 GPU instances on Runpod. For the base and SFT models, my results on BLEU and #Tokens metrics closely match those reported in the paper. Base BLEU was 32.24 vs 32.2 reported in the paper, and SFT BLEU was 34.96 vs 35.2 reported in the paper. However, the Offline DPO model failed to reproduce the gains reported in the paper, with BLEU (34.66) roughly in line with SFT BLEU alongside a higher #Tokens (2503.8 average for DPO vs 2113.8 average for SFT). The best-performing DPO model did not converge to a policy separating the chosen and rejected samples, with the logprob margin between the two remaining negative. Tuning the number of epochs and the beta regularization parameter improved convergence but decreased BLEU. Due to GPU memory limitations, I didn't try increasing the parameter size of the adapter.
+
+Interactivity scores are highest for SFT (0.913), but also quite high for DPO (0.863) and Base (0.825). This suggests that the score is saturated. Additionally, elevated scores are assigned by the LLM judge even for transparently bad behavior from the assistant model. In one rollout I observed, the user is forced to play the role of the questioner, repeatedly asking the assistant to incorporate the same additional information without getting a satisfactory response. This rollout received an interactivity score of 0.8. Because I copied the interactivity judge prompt directly from the reference implementation, this behavior seems to be a property of the evaluation setup rather than my implementation. This makes me skeptical of the capacity of LLM judges to score abstract qualities like "interactivity."
+
+*Full transcript from the rollout discussed above. Scroll inside the box to view all messages.*
+
+<style>
+.collab-transcript .transcript-scroll {
+  max-height: 560px;
+  overflow-y: auto;
+  border: 1px solid #d3dde8;
+  border-radius: 10px;
+  padding: 1rem;
+  background: #eef3f8;
+}
+
+.collab-transcript .chat-log {
+  max-width: 720px;
+  margin: 0 auto;
+  font-family: inherit;
+}
+
+.collab-transcript .chat-msg {
+  margin-bottom: 1rem;
+  padding: 0.85rem 1.1rem;
+  border-radius: 12px;
+  line-height: 1.55;
+  font-size: 0.95rem;
+}
+
+.collab-transcript .chat-msg.system {
+  background: #f0eaff;
+  border-left: 4px solid #7c3aed;
+  color: #4c1d95;
+  font-style: italic;
+}
+
+.collab-transcript .chat-msg.user {
+  background: #e8f4fd;
+  border-left: 4px solid #2563eb;
+}
+
+.collab-transcript .chat-msg.assistant {
+  background: #f1f5f0;
+  border-left: 4px solid #16a34a;
+}
+
+.collab-transcript .chat-role {
+  font-weight: 700;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.3rem;
+}
+
+.collab-transcript .chat-role.system { color: #7c3aed; }
+.collab-transcript .chat-role.user { color: #2563eb; }
+.collab-transcript .chat-role.assistant { color: #16a34a; }
+</style>
+
+<div class="collab-transcript">
+  <div class="transcript-scroll">
+<div class="chat-log">
+<div class="chat-msg system">
+  <div class="chat-role system">System</div>
+  You are a helpful AI assistant. Provide detailed and accurate responses to the user&#x27;s queries.
+</div>
+
+<div class="chat-msg user">
+  <div class="chat-role user">User</div>
+  Can you give me a brief outline or some key points for the article? I want to make sure it covers everything important about Pacioli and the idea of reconciliation as a weapon in this context.
+</div>
+
+<div class="chat-msg assistant">
+  <div class="chat-role assistant">Assistant</div>
+  Sure, I&#x27;d be happy to help you with that! Could you provide more details about what you are looking for in the article, like what specific aspects of Pacioli and the concept of reconciliation you want to focus on? For example, do you want a general overview, or a deeper dive into specific historical events or philosophical ideas? Also, is there a particular angle or perspective you&#x27;d like the article to take? The more information you provide, the better I can tailor the outline to meet your needs!
+</div>
+
+<div class="chat-msg user">
+  <div class="chat-role user">User</div>
+  Maybe focus on Pacioli&#x27;s role in the development of accounting and how that ties into the concept of reconciliation. I think the historical context is important too, especially regarding how it affected Black bodies. Can you work with that?
+</div>
+
+<div class="chat-msg assistant">
+  <div class="chat-role assistant">Assistant</div>
+  Pacioli&#x27;s work on accounting is indeed a crucial piece of the puzzle, especially when relating it to the historical context and its impacts on Black bodies. To create an effective outline, I need a bit more information on how you envision the historical context being presented. For example, are there specific historical events or periods you&#x27;d like to focus on? Additionally, how do you plan to address the concept of reconciliation in this context? Is it about how Pacioli&#x27;s ideas contributed to the development of accounting practices that affected marginalized communities, or is there another angle you&#x27;d like to explore? Lastly, what kind of tone do you envision for the article - is it more academic, historical, or perhaps a blend of perspectives? The more details you provide, the more tailored the outline can be to your needs!
+</div>
+
+<div class="chat-msg user">
+  <div class="chat-role user">User</div>
+  I think I need to clarify a bit. I want the historical context to really highlight how Pacioli&#x27;s accounting methods specifically impacted Black bodies. And for the tone, maybe a mix of academic and historical would be best? Can you use that to help shape the outline?
+</div>
+
+<div class="chat-msg assistant">
+  <div class="chat-role assistant">Assistant</div>
+  Given your specifics about the historical context and the tone, I can start shaping an outline for you. To begin, let&#x27;s start with Pacioli&#x27;s role in accounting history. You might want to include a brief overview of his contributions to double-entry bookkeeping and how this impacted the financial sector, particularly in relation to how it affected Black bodies. Next, consider adding specific historical events or periods where his accounting practices had significant impacts. This could include how his methods were used to track and exploit enslaved people or to manage plantations in ways that exacerbated slavery&#x27;s impacts. To maintain the academic and historical tone, you might want to include scholarly research and insights that contextualize Pacioli&#x27;s work within the broader economic and social structures that influenced Black communities. Finally, think about how the concept of reconciliation fits into this narrative - perhaps discussing how acknowledging and addressing the historical wrongs of accounting practices can lead to more equitable financial systems today. Does that give you a good starting point?
+</div>
+
+<div class="chat-msg user">
+  <div class="chat-role user">User</div>
+  That sounds like a solid outline, but could you suggest some specific examples of how Pacioli&#x27;s accounting methods were used to exploit Black bodies? Also, how might I effectively frame the reconciliation aspect in relation to this historical context? I want to make sure it&#x27;s impactful.
+</div>
+
+<div class="chat-msg assistant">
+  <div class="chat-role assistant">Assistant</div>
+  To incorporate specific examples, consider including how Pacioli&#x27;s double-entry bookkeeping was used in the context of slavery, such as tracking enslaved people as assets or calculating the value of plantations in relation to enslaved labor. This could include examples from the historical record, like how colonial powers used accounting to manage and profit from slavery. Regarding framing the reconciliation aspect, you might want to explore contemporary initiatives that aim to rectify the historical injustices related to accounting practices, such as efforts to repatriate historical records or to create more equitable financial systems. A good starting point for this might be examining how modern financial institutions are acknowledging and addressing their historical ties to slavery and colonialism. Does this help?
+</div>
+
+<div class="chat-msg user">
+  <div class="chat-role user">User</div>
+  Can you give me some specific historical examples or case studies that show how Pacioli&#x27;s accounting methods were directly used to exploit Black bodies? And how can I effectively tie in the reconciliation aspect with these examples? I want to make sure it really resonates.
+</div>
+
+<div class="chat-msg assistant">
+  <div class="chat-role assistant">Assistant</div>
+  To find specific historical examples, consider looking into how colonial powers used accounting to manage plantations and calculate the value of enslaved people. One example could be the use of &quot;cost accounting&quot; to calculate the value of enslaved people as assets. Another example might be how accountancy was used to track and record the transfer of enslaved people between plantations. To effectively tie in the reconciliation aspect, you could discuss contemporary initiatives that aim to rectify historical injustices related to accounting practices, such as reptarition of historical records or creation of equitable financial systems. You might also want to explore how modern financial institutions are acknowledging and addressing their historical ties to slavery and colonialism. Does this give you a good starting point?
+</div>
+
+<div class="chat-msg user">
+  <div class="chat-role user">User</div>
+  Can you give me some specific case studies or historical examples showing how Pacioli&#x27;s accounting methods were used to exploit Black bodies? And how can I tie in the reconciliation aspect effectively with those examples? I want to make sure it resonates well.
+</div>
+
+<div class="chat-msg assistant">
+  <div class="chat-role assistant">Assistant</div>
+  To find specific case studies, consider looking into how colonial powers used accounting to manage plantations and calculate the value of enslaved people. One historical example could be the use of &quot;cost accounting&quot; by Dutch colonizers in Suriname to calculate the value of enslaved people as assets. Another example might be how accountancy was used by British colonizers in Jamaica to track and record the transfer of enslaved people between plantations. To effectively tie in the reconciliation aspect, you could discuss contemporary initiatives that aim to rectify historical injustices related to accounting practices, such as reptarition of historical records or creation of equitable financial systems. You might also want to explore how modern financial institutions are acknowledging and addressing their historical ties to slavery and colonialism. This could include examples of companies that are actively working to address these historical injustices and create more equitable practices.
+</div>
+
+<div class="chat-msg user">
+  <div class="chat-role user">User</div>
+  Can you elaborate more on how these accounting practices directly impacted Black bodies? I’m looking for a clearer connection. Also, can you suggest specific reconciliation initiatives that tie in well with these historical examples? I want to make sure the article really resonates.
+</div>
+
+<div class="chat-msg assistant">
+  <div class="chat-role assistant">Assistant</div>
+  To clarify the connection, let&#x27;s consider how the accounting practices used by colonial powers directly impacted Black bodies. For instance, the use of &quot;cost accounting&quot; by Dutch colonizers in Suriname allowed them to calculate the value of enslaved people as assets, effectively treating people as commodities rather than human beings. Similarly, the use of accountancy by British colonizers in Jamaica to track and record the transfer of enslaved people between plantations facilitated the exploitation and suffering of enslaved individuals. To tie in reconciliation initiatives, you might want to explore contemporary efforts such as the TRIPS Agreement, which aims to address historical injustices related to intellectual property rights and access to knowledge, or initiatives like the International Labour Organization&#x27;s efforts to eradicate forced labor and promote fair labor practices. These could provide a strong connection between historical accounting practices and modern-day reconciliation efforts. Does this help clarify the connection?
+</div>
+
+<div class="chat-msg user">
+  <div class="chat-role user">User</div>
+  Can you give me more specific examples of reconciliation initiatives that would resonate well with the historical context of Pacioli&#x27;s accounting methods? I want to make sure that these initiatives really connect to the exploitation of Black bodies.
+</div>
+
+<div class="chat-msg assistant">
+  <div class="chat-role assistant">Assistant</div>
+  To find specific examples of reconciliation initiatives, consider looking into efforts that directly address the historical exploitation of Black bodies. One example could be the reparations movement, which seeks to compensate individuals and communities for historical injustices, including those related to slavery and colonialism. Another example might be initiatives that aim to preserve and protect the cultural heritage of African diaspora communities, such as the Smithsonian&#x27;s African American Museum or the National Museum of African American History and Culture. To create a stronger connection with the historical context of Pacioli&#x27;s accounting methods, you could discuss how these initiatives are working to rectify the historical wrongs of accounting practices that treated Black bodies as commodities. This could include how modern financial institutions are acknowledging and addressing their historical ties to slavery and colonialism, or how contemporary accounting practices are being revised to prioritize social responsibility and equity. Does this provide a good starting point?
+</div>
+
+<div class="chat-msg user">
+  <div class="chat-role user">User</div>
+  Can you provide more details on how the reconciliation initiatives, like the reparations movement, are practically addressing the historical exploitation tied to Pacioli&#x27;s accounting methods? I want to make sure the connection is clear and impactful.
+</div>
+
+<div class="chat-msg assistant">
+  <div class="chat-role assistant">Assistant</div>
+  To explore how the reparations movement is practically addressing the historical exploitation tied to Pacioli&#x27;s accounting methods, consider looking into specific initiatives that are directly addressing the legacy of slavery and colonialism. For example, some reparations efforts are focused on preserving and protecting the cultural heritage of African diaspora communities, such as the Smithsonian&#x27;s African American Museum or the National Museum of African American History and Culture. Others might be working to provide financial compensation to individuals and communities affected by historical injustices. When discussing these efforts, you could explore how they are working to rectify the historical wrongs of accounting practices that treated Black bodies as commodities, such as revising modern accounting practices to prioritize social responsibility and equity. To make the connection clear and impactful, you might want to include specific examples of how these initiatives are addressing the historical exploitation, such as the use of &quot;cost accounting&quot; by colonial powers or how accountancy was used to track and record the transfer of enslaved people. Does this give you a good starting point?
+</div>
+
+<div class="chat-msg user">
+  <div class="chat-role user">User</div>
+  Can you give me more specific examples of how the reparations movement or other reconciliation initiatives are addressing the exploitation connected to Pacioli&#x27;s accounting methods? I want to make sure the connection is very clear and impactful in my article.
+</div>
+
+<div class="chat-msg assistant">
+  <div class="chat-role assistant">Assistant</div>
+  To find more specific examples, consider looking into efforts that are directly addressing the historical exploitation of Black bodies. One example could be the reparations movement&#x27;s focus on preserving and protecting the cultural heritage of African diaspora communities, such as the Smithsonian&#x27;s African American Museum or the National Museum of African American History and Culture. Another example might be initiatives that provide financial compensation to individuals and communities affected by historical injustices. When discussing these efforts, you could explore how they are working to rectify the historical wrongs of accounting practices that treated Black bodies as commodities. For instance, you might discuss how modern financial institutions are acknowledging and addressing their historical ties to slavery and colonialism, or how contemporary accounting practices are being revised to prioritize social responsibility and equity. To make the connection clear and impactful, you might want to include specific examples of how these initiatives are addressing the historical exploitation, such as the use of &quot;cost accounting&quot; by colonial powers or how accountancy was used to track and record the transfer of enslaved people. Does this provide a good starting point?
+</div>
+
+<div class="chat-msg user">
+  <div class="chat-role user">User</div>
+  Can you give me more detailed examples or case studies of how the reparations movement or other reconciliation initiatives are practically addressing the exploitation connected to Pacioli&#x27;s accounting methods? I want to ensure the connections are very clear and impactful in my article.
+</div>
+
+<div class="chat-msg assistant">
+  <div class="chat-role assistant">Assistant</div>
+  To explore more detailed examples, consider looking into case studies or specific initiatives that are directly addressing the historical exploitation of Black bodies. One example could be the reparations movement&#x27;s focus on preserving and protecting the cultural heritage of African diaspora communities, such as the Smithsonian&#x27;s African American Museum or the National Museum of African American History and Culture. Another example might be initiatives that provide financial compensation to individuals and communities affected by historical injustices, like the reparations programs in countries like Jamaica or Suriname. When discussing these efforts, you could explore how they are working to rectify the historical wrongs of accounting practices that treated Black bodies as commodities. For instance, you might discuss how modern financial institutions are acknowledging and addressing their historical ties to slavery and colonialism, or how contemporary accounting practices are being revised to prioritize social responsibility and equity. To make the connection clear and impactful, you might want to include specific examples of how these initiatives are addressing the historical exploitation, such as the use of &quot;cost accounting&quot; by colonial powers or how accountancy was used to track and record the transfer of enslaved people. Does this provide a good starting point?
+</div>
+
+<div class="chat-msg user">
+  <div class="chat-role user">User</div>
+  Can you give me more detailed case studies or specific initiatives within the reparations movement that directly connect to the exploitation tied to Pacioli&#x27;s accounting methods? I want to make sure these examples are impactful and clearly show how they&#x27;re addressing the historical injustices.
+</div>
+
+<div class="chat-msg assistant">
+  <div class="chat-role assistant">Assistant</div>
+  To explore more detailed case studies, consider looking into initiatives like the reparations programs in Suriname, which are providing financial compensation to individuals and communities affected by historical injustices related to slavery and colonialism. Another example might be the reparations efforts in Jamaica, which are aimed at preserving and protecting the cultural heritage of African diaspora communities. When discussing these efforts, you could explore how they are working to rectify the historical wrongs of accounting practices that treated Black bodies as commodities. For instance, you might discuss how modern financial institutions are acknowledging and addressing their historical ties to slavery and colonialism, or how contemporary accounting practices are being revised to prioritize social responsibility and equity. To make the connection clear and impactful, you might want to include specific examples of how these initiatives are addressing the historical exploitation, such as the use of &quot;cost accounting&quot; by colonial powers or how accountancy was used to track and record the transfer of enslaved people. Does this give you a good starting point?
+</div>
+
+<div class="chat-msg user">
+  <div class="chat-role user">User</div>
+  Can you provide more detailed case studies or specific examples of reparations initiatives that clearly connect to Pacioli&#x27;s accounting methods and the exploitation of Black bodies? I want to ensure these connections are very clear and impactful in my article.
+</div>
+
+<div class="chat-msg assistant">
+  <div class="chat-role assistant">Assistant</div>
+  To explore more detailed case studies, consider looking into the reparations program in Suriname, which is providing financial compensation to individuals and communities affected by historical injustices related to slavery and colonialism. This program could provide a clear example of how reparations efforts are directly addressing the historical exploitation tied to Pacioli&#x27;s accounting methods. Another example might be the reparations efforts in Jamaica, which are aimed at preserving and protecting the cultural heritage of African diaspora communities. When discussing these efforts, you could explore how they are working to rectify the historical wrongs of accounting practices that treated Black bodies as commodities. For instance, you might discuss how modern financial institutions are acknowledging and addressing their historical ties to slavery and colonialism, or how contemporary accounting practices are being revised to prioritize social responsibility and equity. To make the connection clear and impactful, you might want to include specific examples of how these initiatives are addressing the historical exploitation, such as the use of &quot;cost accounting&quot; by colonial powers or how accountancy was used to track and record the transfer of enslaved people. Does this provide a good starting point?
+</div>
+
+<div class="chat-msg user">
+  <div class="chat-role user">User</div>
+  Can you give me more specific case studies or detailed examples of how reparations initiatives are directly addressing the exploitation connected to Pacioli&#x27;s accounting methods? I really want to make sure these connections are clear and impactful in my article.
+</div>
+
+<div class="chat-msg assistant">
+  <div class="chat-role assistant">Assistant</div>
+  To explore more specific case studies, consider looking into the reparations program in Suriname, which is providing financial compensation to individuals and communities affected by historical injustices related to slavery and colonialism. This program could provide a clear example of how reparations efforts are directly addressing the historical exploitation tied to Pacioli&#x27;s accounting methods. You might also want to explore the reparations efforts in Jamaica, which are aimed at preserving and protecting the cultural heritage of African diaspora communities. When discussing these efforts, you could explore how they are working to rectify the historical wrongs of accounting practices that treated Black bodies as commodities. For instance, you might discuss how modern financial institutions are acknowledging and addressing their historical ties to slavery and colonialism, or how contemporary accounting practices are being revised to prioritize social responsibility and equity. To make the connection clear and impactful, you might want to include specific examples of how these initiatives are addressing the historical exploitation, such as the use of &quot;cost accounting&quot; by colonial powers or how accountancy was used to track and record the transfer of enslaved people. Does this give you a good starting point?
+</div>
+</div>
+  </div>
+</div>
+
+## Extensions
+
+Thinking through potential future work, a rigorous understanding of the capabilities and limits of RL methods with LLM-as-judge data seems valuable. How would LLMs perform as judges of other abstract qualities, such as novelty or clarity? Are there limits to the amount of such data that can be leveraged, before the base model learns to exploit the judge?
+
+## Notes on Work Process
+
+When I started working on this project I had never used Claude Code before. My idea was to implement the paper mostly by hand so that I learned how to use these libraries. Eventually, I decided to use Claude Code to do the least interesting infra bits for the simulation environment. Gradually this evolved into an approach of using Claude Code or Codex throughout most of my process. I even ended up running experiments via Claude Code, and having it report results into a running experiment doc.
+
+### Where Vibe Coding Failed
+
+1. The initial eval script for the BLEU metric split the texts by word, and ChatGPT/Claude agreed. However, with this setup the BLEU was coming back as zero. It turns out the proper use of the `nltk` API is just supplying the full string. Took me a while to figure this out. This is the most clear instance of LLMs just being flat-out wrong I encountered.
+2. The models hallucinate parameters for the HuggingFace fine-tuning APIs. I think the APIs are just so big and change so much that it's hard to keep them straight.
+3. Codex naively implemented the DPO data format in a way that kept one pair per conversation. We actually needed one pair per conversation turn. Fixing this bug fixed some very degenerate behavior.
+
+### Where Vibe Coding Worked
+
+Still, in other cases, the coding agents caught issues I would not have seen myself. Claude Code (in plan mode) realized that the default `max_seq_length` for DPO wasn't sufficient to include full conversation rollouts in many cases. Fixing this bug dramatically increased DPO performance.
+
+Stylistically, my biggest gripe with LLM code was that it often felt overly verbose. Claude Code generated lots of boilerplate that I think interferes with the legibility of the codebase for a human.
+
+On to the next project.
+
+---
+
+*Note: My code can be found in this [GitHub repo](https://github.com/rfgordan/CollabLLM). The experiment log [is here](https://github.com/rfgordan/CollabLLM/blob/main/docs/agent_notes.md).*

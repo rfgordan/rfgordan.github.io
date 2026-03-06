@@ -2,17 +2,24 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Data Science on Robert Gordan</title>
-    <link>//localhost:1313/tags/data-science/</link>
+    <link>/tags/data-science/</link>
     <description>Recent content in Data Science on Robert Gordan</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 18 Aug 2019 00:00:00 +0000</lastBuildDate>
-    <atom:link href="//localhost:1313/tags/data-science/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 06 Mar 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="/tags/data-science/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CollabLLM</title>
+      <link>/posts/collabllm/</link>
+      <pubDate>Fri, 06 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>/posts/collabllm/</guid>
+      <description>&lt;p&gt;After returning to California from six months backpacking in Asia, I wanted to refresh my ML skills. My first step was to reproduce a recent research paper end-to-end.&lt;/p&gt;&#xA;&lt;p&gt;The paper that I chose is &lt;a href=&#34;https://arxiv.org/abs/2502.00640&#34;&gt;CollabLLM&lt;/a&gt;. The core idea of the paper is to turn chat models into &amp;ldquo;collaborative problem-solvers&amp;rdquo; by fine-tuning the models on simulated conversations that have been scored and selected on this quality.&lt;/p&gt;&#xA;&lt;p&gt;I chose this paper for several reasons. First, the authors open-sourced the code and several datasets. Second, the idea is compelling, but the technical execution still feels approachable enough for novices. There&amp;rsquo;s not too much math or obscure custom code in the critical path. The RL itself is handled by high-level HuggingFace APIs, and the contribution of the paper is to combine these pieces and orient them in an interesting research direction. Finally, and relatedly, many of the key elements of the paper felt relevant to a broad range of frontier AI work. Simulating chat rollouts via model APIs closely resembles the infrastructure used in agent systems. The LLM-as-judge + chat simulation framework could be extended to lots of different research ideas.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Exploring TFT Matchmaking</title>
-      <link>//localhost:1313/posts/exploring-tft-matchmaking/</link>
+      <link>/posts/exploring-tft-matchmaking/</link>
       <pubDate>Sun, 18 Aug 2019 00:00:00 +0000</pubDate>
-      <guid>//localhost:1313/posts/exploring-tft-matchmaking/</guid>
+      <guid>/posts/exploring-tft-matchmaking/</guid>
       <description>&lt;p&gt;Teamfight Tactics, or TFT, is Riot’s entry in the “autochess” genre of strategy video games. Like Riot’s flagship game, League of Legends, TFT has a Ranked mode where players move up and down a “ladder” composed of tiers (Iron, Bronze, Silver, Gold, Platinum, Diamond, Master, Grandmaster, and Challenger) and more granular numbered divisions within these tiers. This system exists essentially to make improvement feel more rewarding; “climbing” from plat iv to diamond i is more exhilarating than gaining 100 points of elo in chess. Behind this facade, however, lies the Matchmaking Rating (MMR), a purer rating system that doesn’t have the same user experience constraints. MMR represents Riot’s best guess about a player’s skill, and, as the name suggests, is used to assign players opponents of equivalent skill.&lt;/p&gt;</description>
     </item>
   </channel>
