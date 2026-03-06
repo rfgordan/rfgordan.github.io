@@ -6,13 +6,41 @@
     <description>Recent content in Tags on Robert Gordan</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 18 Aug 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 06 Mar 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Data Science</title>
       <link>/tags/data-science/</link>
-      <pubDate>Sun, 18 Aug 2019 00:00:00 +0000</pubDate>
+      <pubDate>Fri, 06 Mar 2026 00:00:00 +0000</pubDate>
       <guid>/tags/data-science/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>LLM</title>
+      <link>/tags/llm/</link>
+      <pubDate>Fri, 06 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>/tags/llm/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Programming</title>
+      <link>/tags/programming/</link>
+      <pubDate>Fri, 06 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>/tags/programming/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Research</title>
+      <link>/tags/research/</link>
+      <pubDate>Fri, 06 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>/tags/research/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Writing</title>
+      <link>/tags/writing/</link>
+      <pubDate>Fri, 06 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>/tags/writing/</guid>
       <description></description>
     </item>
     <item>
@@ -30,24 +58,10 @@
       <description></description>
     </item>
     <item>
-      <title>Programming</title>
-      <link>/tags/programming/</link>
-      <pubDate>Sun, 18 Aug 2019 00:00:00 +0000</pubDate>
-      <guid>/tags/programming/</guid>
-      <description></description>
-    </item>
-    <item>
       <title>TFT</title>
       <link>/tags/tft/</link>
       <pubDate>Sun, 18 Aug 2019 00:00:00 +0000</pubDate>
       <guid>/tags/tft/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Writing</title>
-      <link>/tags/writing/</link>
-      <pubDate>Sun, 18 Aug 2019 00:00:00 +0000</pubDate>
-      <guid>/tags/writing/</guid>
       <description></description>
     </item>
     <item>

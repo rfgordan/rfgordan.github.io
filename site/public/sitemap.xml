@@ -8,16 +8,16 @@
     <loc>/categories/</loc>
     <lastmod>2026-03-06T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>/posts/collabllm/</loc>
-    <lastmod>2026-03-06T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/categories/data-science/</loc>
-    <lastmod>2026-03-06T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>/tags/data-science/</loc>
     <lastmod>2026-03-06T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>/posts/collabllm/</loc>
+    <lastmod>2026-03-06T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>/tags/llm/</loc>
+    <lastmod>2026-03-06T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/categories/machine-learning/</loc>
     <lastmod>2026-03-06T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/tags/programming/</loc>
@@ -34,6 +34,9 @@
   </url><url>
     <loc>/tags/writing/</loc>
     <lastmod>2026-03-06T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/categories/data-science/</loc>
+    <lastmod>2019-08-18T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/tags/elo/</loc>
     <lastmod>2019-08-18T00:00:00+00:00</lastmod>

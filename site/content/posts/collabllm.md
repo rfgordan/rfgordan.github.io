@@ -1,5 +1,5 @@
 ---
-title: "Implementing an ICML Paper (CollabLLM)"
+title: "Implementing CollabLLM"
 date: 2026-03-06T00:00:00Z
 categories: ["machine learning"]
 tags: ["writing", "programming", "data science", "LLM", "research"]
