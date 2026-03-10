@@ -5,15 +5,17 @@ categories: ["machine learning"]
 tags: ["writing", "programming", "data science", "LLM", "research"]
 ---
 
-After returning to California from six months backpacking in Asia, I wanted to refresh my ML skills. My first step was to reproduce a recent research paper end-to-end.
+## Introduction
 
-The paper that I chose is [CollabLLM](https://arxiv.org/abs/2502.00640). The core idea of the paper is to turn chat models into "collaborative problem-solvers" by fine-tuning the models on simulated conversations that have been scored and selected on this quality.
+Large language models are pretty large. The latest generation of models are probably upwards of 1T parameters. Is it still possible for an individual without lab-scale resources to do meaningful research? One helpful trend is that the models themselves are increasingly able to shoulder tasks within the research process (writing code, summarizing and visualizing results) and within a given ML pipeline itself (generating data). We can fight scale with scale.
+
+I was thinking about this over the last few weeks as I re-implemented the ICML paper [CollabLLM](https://arxiv.org/abs/2502.00640). My primary motivation in re-implementing a paper was to refresh my ML skills, including my knowledge of RL techniques, for the current research environment. The extent to which it turned into an exercise in using ML to do ML research came somewhat as a surprise.
 
 <p align="center">
   <img src="/posts/collabllm/collabllm-system-graphic.png" alt="CollabLLM system graphic">
 </p>
 
-I chose this paper for several reasons. First, the authors open-sourced the code and several datasets. Second, the idea is compelling, but the technical execution still feels approachable enough for novices. There's not too much math or obscure custom code in the critical path. The RL itself is handled by high-level HuggingFace APIs, and the contribution of the paper is to combine these pieces and orient them in an interesting research direction. Finally, and relatedly, many of the key elements of the paper felt relevant to a broad range of frontier AI work. Simulating chat rollouts via model APIs closely resembles the infrastructure used in agent systems. The LLM-as-judge + chat simulation framework could be extended to lots of different research ideas.
+The core idea of CollabLLM is to turn chat models into "collaborative problem-solvers" by fine-tuning the models on simulated conversations that have been scored and selected on this quality. I chose this specific paper for several reasons. First, the authors open-sourced the code and several datasets, so we have a reference point if we get stuck. Second, the idea is compelling, but the technical execution still feels approachable enough for novices. There's not too much math or obscure custom code in the critical path. The RL itself is handled by high-level HuggingFace APIs, and the contribution of the paper is to combine these pieces and orient them in an interesting research direction. Finally, and relatedly, many of the key elements of the paper felt relevant to a broad range of frontier AI work. Simulating chat rollouts via model APIs closely resembles the infrastructure used in agent systems. The LLM-as-judge + chat simulation framework can be extended in pretty arbitrary directions. You can ask the judge to evaluate anything, and it scales much more cheaply (but not for free) because you don't need human labeling.
 
 ## Technical Details and Results
 
@@ -32,6 +34,21 @@ Next, we use this data to fine-tune a base model. The paper implements four fine
 </p>
 
 I used Llama-3.1-8B as the base model (following the paper) and trained using 1xA40 GPU instances on Runpod. For the base and SFT models, my results on BLEU and #Tokens metrics closely match those reported in the paper. Base BLEU was 32.24 vs 32.2 reported in the paper, and SFT BLEU was 34.96 vs 35.2 reported in the paper. However, the Offline DPO model failed to reproduce the gains reported in the paper, with BLEU (34.66) roughly in line with SFT BLEU alongside a higher #Tokens (2503.8 average for DPO vs 2113.8 average for SFT). The best-performing DPO model did not converge to a policy separating the chosen and rejected samples, with the logprob margin between the two remaining negative. Tuning the number of epochs and the beta regularization parameter improved convergence but decreased BLEU. Due to GPU memory limitations, I didn't try increasing the parameter size of the adapter.
+
+<div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin: 1rem 0 2rem 0;">
+  <figure style="max-width: 48%; min-width: 280px; margin: 0;">
+    <img src="/posts/collabllm/sft-loss.png" alt="SFT loss follows a clear, converging downward trend" style="width: 100%;">
+    <figcaption style="margin-top: 0.45rem; text-align: center; font-size: 0.9rem; color: #4b5563;">
+      Left: SFT loss follows a clear, converging downward trend.
+    </figcaption>
+  </figure>
+  <figure style="max-width: 48%; min-width: 280px; margin: 0;">
+    <img src="/posts/collabllm/dpo-margins.png" alt="DPO margins show unstable training behavior" style="width: 100%;">
+    <figcaption style="margin-top: 0.45rem; text-align: center; font-size: 0.9rem; color: #4b5563;">
+      Right: DPO margins show unstable training behavior.
+    </figcaption>
+  </figure>
+</div>
 
 Interactivity scores are highest for SFT (0.913), but also quite high for DPO (0.863) and Base (0.825). This suggests that the score is saturated. Additionally, elevated scores are assigned by the LLM judge even for transparently bad behavior from the assistant model. In one rollout I observed, the user is forced to play the role of the questioner, repeatedly asking the assistant to incorporate the same additional information without getting a satisfactory response. This rollout received an interactivity score of 0.8. Because I copied the interactivity judge prompt directly from the reference implementation, this behavior seems to be a property of the evaluation setup rather than my implementation. This makes me skeptical of the capacity of LLM judges to score abstract qualities like "interactivity."
 
@@ -248,7 +265,7 @@ Thinking through potential future work, a rigorous understanding of the capabili
 
 ## Notes on Work Process
 
-When I started working on this project I had never used Claude Code before. My idea was to implement the paper mostly by hand so that I learned how to use these libraries. Eventually, I decided to use Claude Code to do the least interesting infra bits for the simulation environment. Gradually this evolved into an approach of using Claude Code or Codex throughout most of my process. I even ended up running experiments via Claude Code, and having it report results into a running experiment doc.
+When I started working on this project I had never used Claude Code before. My idea was to implement the paper mostly by hand so that I learned how to use these libraries. Eventually, I decided to use Claude Code to do the least interesting infra bits for the simulation environment. Gradually this evolved into an approach of using Claude Code or Codex throughout most of my process. I even ended up running experiments via Claude Code, and having it report and synthesize results into a running experiment doc. As I was writing this post, [Karpathy tweeted about his autoresearcher work](https://x.com/karpathy/status/2030371219518931079), which delegates the entire feedback loop and ideation to the agent as well. That seems like the natural extension of where I ended up.
 
 ### Where Vibe Coding Failed
 
@@ -262,7 +279,11 @@ Still, in other cases, the coding agents caught issues I would not have seen mys
 
 Stylistically, my biggest gripe with LLM code was that it often felt overly verbose. Claude Code generated lots of boilerplate that I think interferes with the legibility of the codebase for a human.
 
-On to the next project.
+## Conclusion
+
+So, to answer my own question: is it possible for an individual to do ML research? I think so. In terms of implementation, it's clearly never been easier to try. But the setup still requires some thought. Based on my experience with CollabLLM, I wouldn't blindly trust LLMs as judges. The proof is in the pudding, and qualitative validation of the LLM behavior in these simulation environments is necessary.
+
+There are plenty of other research areas to explore as well. I'm excited to try my hand at some of the mechinterp and alignment techniques, which also feel relatively accessible.
 
 ---
 
