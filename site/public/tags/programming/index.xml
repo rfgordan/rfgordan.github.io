@@ -13,7 +13,7 @@
       <link>/posts/collabllm/</link>
       <pubDate>Fri, 06 Mar 2026 00:00:00 +0000</pubDate>
       <guid>/posts/collabllm/</guid>
-      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;Large language models are pretty large. The latest generation of models probably has upward of 1T parameters. Is it still possible for an individual without lab-scale resources to do meaningful research? One helpful trend is that the models themselves are increasingly able to shoulder tasks within the research process (writing code, summarizing and visualizing results) and within a given ML pipeline itself (generating data). We can fight scale with scale.&lt;/p&gt;</description>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;Large language models are pretty large. The latest generation of models are probably upwards of 1T parameters. Is it still possible for an individual without lab-scale resources to do meaningful research? One helpful trend is that the models themselves are increasingly able to shoulder tasks within the research process (writing code, summarizing and visualizing results) and within a given ML pipeline itself (generating data). We can fight scale with scale.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Exploring TFT Matchmaking</title>
